@@ -16,18 +16,21 @@ public class PessoaService {
 	@Autowired
 	private PessoaRepository repository;
 	
+	@Autowired
+	private ContaService contaService;
+	
 	public List<Pessoa> listarPessoas(){
 		return repository.findAll(); 
 	}
 
 	public Pessoa salvarPessoa(Pessoa pessoa) throws Exception {
 		validar(pessoa);
-		Conta conta = ContaService.criarConta(pessoa);
+		Conta conta = contaService.criarConta(pessoa);
 		pessoa.setConta(conta);
 		return repository.save(pessoa);
 	}
 
-	private void validar(Pessoa pessoa) throws Exception {
+	public void validar(Pessoa pessoa) throws Exception {
 		Long documentoSize = (long) String.valueOf(pessoa.getNumeroDocumento()).length();
 		if(pessoa.getTipoPessoa() == TipoPessoaEnum.PF && documentoSize != 11) {
 			throw new Exception("Documento inválido, o documento deve conter 11 digitos");
@@ -42,7 +45,6 @@ public class PessoaService {
 		if(!pessoa.getTipoPessoa().equals(TipoPessoaEnum.PF) && !pessoa.getTipoPessoa().equals(TipoPessoaEnum.PJ)) {
 			throw new Exception("Tipo Pessoa inválido, o tipo deve ser PF ou PJ");
 		}
-		
 	}
 	
 }

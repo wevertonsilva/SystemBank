@@ -49,8 +49,25 @@ public class PessoaServiceTest {
 		verify(repository, times(1)).save(pessoa);
 	}
 	
-	@Test
-	public void testValidar() {
-		
+	@Test(expected=Exception.class)
+	public void testValidarDocumentoPF() throws Exception {
+		Conta conta = new Conta(1l, 234566l, 1234, TipoContaEnum.C, null, null, null);
+		Pessoa pessoa = new Pessoa(1l,"pessoaTeste",TipoPessoaEnum.PF, 1234567897689l, 9, conta);
+		service.validar(pessoa);
 	}
+	
+	@Test(expected=Exception.class)
+	public void testValidarDocumentoPJ() throws Exception {
+		Conta conta = new Conta(1l, 234566l, 1234, TipoContaEnum.C, null, null, null);
+		Pessoa pessoa = new Pessoa(1l,"pessoaTeste",TipoPessoaEnum.PJ, 12345678976l, 9, conta);
+		service.validar(pessoa);
+	}
+	
+	@Test(expected=Exception.class)
+	public void testValidarScore() throws Exception {
+		Conta conta = new Conta(1l, 234566l, 1234, TipoContaEnum.C, null, null, null);
+		Pessoa pessoa = new Pessoa(1l,"pessoaTeste",TipoPessoaEnum.PF, 12345678976l, 10, conta);
+		service.validar(pessoa);
+	}
+	
 }

@@ -11,7 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+
+import org.springframework.lang.NonNull;
 
 import com.example.systembank.enuns.TipoPessoaEnum;
 
@@ -36,23 +37,24 @@ public class Pessoa implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotNull
+	@NonNull
 	@Column(name = "nome")
 	private String nome;
 	
-	@NotNull
+	@NonNull
 	@Column(name = "tipo_pessoa")
 	private TipoPessoaEnum tipoPessoa;
 	
-	@NotNull
+	@NonNull
 	@Column(name = "numero_documento")
 	private Long numeroDocumento;
 	
-	@NotNull
+	@NonNull
 	@Column(name = "score")
 	private Integer score;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "conta_id")
 	private Conta conta;
+
 }

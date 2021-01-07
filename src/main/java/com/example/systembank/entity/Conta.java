@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import com.example.systembank.enuns.TipoContaEnum;
 
@@ -48,7 +47,7 @@ public class Conta implements Serializable{
 	@Column(name = "cheque_especial")
 	private Double chequeEspecial;
 	
-	@Transient
+	@Column(name = "message")
 	private String message;
 	
 	@OneToOne(cascade = CascadeType.ALL)

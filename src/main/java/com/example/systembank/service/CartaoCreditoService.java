@@ -9,7 +9,7 @@ import com.example.systembank.entity.Conta;
 @Component
 public class CartaoCreditoService {
 	
-	public static CartaoCredito criarCartaoCredito(Conta conta) {
+	public CartaoCredito criarCartaoCredito(Conta conta) {
 		CartaoCredito cartao = new CartaoCredito();
 		
 		if(conta.getChequeEspecial().compareTo(Constantes.CHEQUE_ESPECIAL_2_5) == 0) {

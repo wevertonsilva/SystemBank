@@ -21,11 +21,14 @@ public class ContaService {
 	@Autowired
 	private ContaRepository repository;
 	
+	@Autowired
+	private CartaoCreditoService cartaoCreditoService;
+	
 	public List<Conta> listarContas(){
 		return repository.findAll();
 	}
 	
-	public static Conta criarConta(Pessoa pessoa) {
+	public Conta criarConta(Pessoa pessoa) {
 		Conta conta = new Conta();
 		conta.setNumero(geraNumeroConta());
 		conta.setAgencia(agencia);
@@ -42,12 +45,12 @@ public class ContaService {
 		return conta;
 	}
 
-	private static Long geraNumeroConta() {
+	public Long geraNumeroConta() {
 		Long numeroConta = (long) (100000l + Math.random() * 899999l);
 		return numeroConta;
 	}
 	
-	private static CartaoCredito calculaChequeEspecial(Integer score, Conta conta) {
+	public CartaoCredito calculaChequeEspecial(Integer score, Conta conta) {
 		if(score == 0 || score == 1) {
 			conta.setMessage("Cheque especial desabilitado");
 			return null;
@@ -59,7 +62,7 @@ public class ContaService {
 			conta.setChequeEspecial(Constantes.CHEQUE_ESPECIAL_9);
 		}
 		
-		return CartaoCreditoService.criarCartaoCredito(conta);
+		return cartaoCreditoService.criarCartaoCredito(conta);
 	}
 	
 }
