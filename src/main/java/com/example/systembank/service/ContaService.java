@@ -1,5 +1,8 @@
 package com.example.systembank.service;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.example.systembank.constante.Constantes;
@@ -8,11 +11,19 @@ import com.example.systembank.entity.Conta;
 import com.example.systembank.entity.Pessoa;
 import com.example.systembank.enuns.TipoContaEnum;
 import com.example.systembank.enuns.TipoPessoaEnum;
+import com.example.systembank.repository.ContaRepository;
 
 @Component
 public class ContaService {
 
 	private final static Integer agencia = 1234;
+	
+	@Autowired
+	private ContaRepository repository;
+	
+	public List<Conta> listarContas(){
+		return repository.findAll();
+	}
 	
 	public static Conta criarConta(Pessoa pessoa) {
 		Conta conta = new Conta();
