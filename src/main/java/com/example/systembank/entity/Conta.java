@@ -12,7 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
 
 import com.example.systembank.enuns.TipoContaEnum;
 
@@ -37,15 +36,12 @@ public class Conta implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotNull
 	@Column(name = "numero")
 	private Long numero;
 	
-	@NotNull
 	@Column(name = "agencia")
 	private Integer agencia;
 	
-	@NotNull
 	@Column(name = "tipo")
 	private TipoContaEnum tipo;
 	

@@ -2,8 +2,6 @@ package com.example.systembank.service;
 
 import java.util.List;
 
-import javax.validation.ConstraintViolationException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,15 +21,10 @@ public class PessoaService {
 	}
 
 	public Pessoa salvarPessoa(Pessoa pessoa) throws Exception {
-		try {
-			validar(pessoa);
-			Conta conta = ContaService.criarConta(pessoa);
-			pessoa.setConta(conta);
-			return repository.save(pessoa);
-		} catch(ConstraintViolationException e) {
-			e.printStackTrace();
-			return null;
-		}	
+		validar(pessoa);
+		Conta conta = ContaService.criarConta(pessoa);
+		pessoa.setConta(conta);
+		return repository.save(pessoa);
 	}
 
 	private void validar(Pessoa pessoa) throws Exception {
@@ -44,6 +37,10 @@ public class PessoaService {
 		
 		if(pessoa.getScore() > 9 || pessoa.getScore() < 0) {
 			throw new Exception("Score inválido, o score deve estar entre 0 e 9");
+		}
+		
+		if(!pessoa.getTipoPessoa().equals(TipoPessoaEnum.PF) && !pessoa.getTipoPessoa().equals(TipoPessoaEnum.PJ)) {
+			throw new Exception("Tipo Pessoa inválido, o tipo deve ser PF ou PJ");
 		}
 		
 	}
